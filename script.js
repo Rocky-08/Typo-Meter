@@ -38,19 +38,12 @@ let generate_wordsHard = () => {
 
 let countScore = 0;
 
-
-
-
-let calcMin;
+let calcMin = 0;
 let seconds;
-
-
 
 seconds = 8;
 
 let option = 'Easy';
-
-
 
 options.addEventListener('click',function()
 {
@@ -59,7 +52,7 @@ options.addEventListener('click',function()
 
 let timer_on = () => {
 
-    if(seconds == 1)
+    if(seconds == 1 && calcMin == 0)
 {
      end_box.classList.remove('hidden');
      main_box.classList.add('hidden');
@@ -67,77 +60,47 @@ let timer_on = () => {
 
 }
 
-    if(seconds > 1)
-    {
-        calcMin = Math.floor (seconds/60);
+if(seconds == 0 && calcMin!=0) {
 
-        if(calcMin!=0)
-        {
-            seconds =  seconds%60;
-        }
-    
-        seconds--;
-    
-        if(seconds == 0)
-        {
-            seconds = 60;
-            
-            calcMin--;
-        }
-        
-        else if(calcMin == 0)
-        {
-            /* seconds = 0; */
-            
-        }
-        let minute_zero = calcMin < 10 ? '0':'';
-        let seconds_zero = seconds<10 ? '0':'';
-    
-        
-    
-        time_left.textContent = `Time left ${minute_zero}${calcMin}:${seconds_zero}${seconds}`;
-        
-    }
-    
-        
+      seconds = 59;
+      calcMin--;
+}
+
+   if(seconds > 60) {
+       calcMin = Math.floor(seconds/60);
+       seconds = seconds%60;
+   }
+
+   else if(seconds < 60)
+   {
+       seconds--;
+   }
+   let minute_zero = calcMin < 10 ? '0':'';
+   let seconds_zero = seconds<10 ? '0':'';
+
+   time_left.textContent = `Time left ${minute_zero}${calcMin}:${seconds_zero}${seconds}`;
+  
+
 } 
 
-/* timer_on(8); */
-
-
-
-setInterval(timer_on,800)
-
-
-
+setInterval(timer_on,500)
 generate_wordsEasy();
-         
-    
-         
-        
-    
-     
-    
 
 input.addEventListener('keydown',function(e)
 { 
-    
-
-    if(e.key == 'Enter')
+      if(e.key == 'Enter')
     {
-        
         if(input.value == word)
         {
             if(seconds > 0)
             {
                 countScore++;
+
                 score.textContent = `Score : ${countScore}`;
 
                 console.log('hello');
                 
                 input.value = '';
-
-                
                 
                 if(option == 'Easy')
                 {
@@ -157,15 +120,8 @@ input.addEventListener('keydown',function(e)
                     seconds+=3;
                 }
             }
-
-
         }
-        
-       
-    
     }
-
-   
 })
 
 reset_btn.addEventListener('click',function()
@@ -178,13 +134,4 @@ reset_btn.addEventListener('click',function()
      generate_wordsEasy();
      options.value = 'Easy';
      input.value = '';
-
-
-
 })
-
-
-
-
-
-
