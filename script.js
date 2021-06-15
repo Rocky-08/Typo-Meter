@@ -126,12 +126,7 @@ input.addEventListener('keydown',function(e)
 
 reset_btn.addEventListener('click',function()
 {
-    countScore = 0;
-    seconds = 8;
-    end_box.classList.add('hidden');
-     main_box.classList.remove('hidden');
-     score.textContent = `Score : ${countScore}`;
-     generate_wordsEasy();
-     options.value = 'Easy';
-     input.value = '';
+    
+     
+     window.location.reload();
 })
